@@ -1,8 +1,8 @@
-from src.api.base_api import UpbitAPI
-from src.api.models import Account
+from src.upbit.api.api import UpbitAPIBase
+from src.upbit.models import Account
 
 
-class ExchangeAPI(UpbitAPI):
+class ExchangeAPI(UpbitAPIBase):
     def __init__(self):
         super().__init__()
 

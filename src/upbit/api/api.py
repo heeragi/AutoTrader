@@ -5,7 +5,7 @@ import jwt
 import requests
 
 
-class UpbitAPI:
+class UpbitAPIBase:
 
     def __init__(self):
         self.__access_key = os.environ.get('UPBIT_API_ACCESS_KEY')
@@ -29,6 +29,9 @@ class UpbitAPI:
             response = requests.get(url, params=params, headers=headers)
         elif method == 'POST':
             response = requests.post(url, params=params, headers=headers)
+
+        if response.status_code != 200:
+            raise Exception(response.text)
 
         if response is None:
             raise Exception('API Error')
