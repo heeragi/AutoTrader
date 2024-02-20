@@ -10,4 +10,34 @@ class QuotationAPI(UpbitAPIBase):
         :return: list[Coin]
         """
         results = self._call_api('GET', '/v1/market/all?isDetails=true')
+
+        # 국내장 현물만 가져오기
+        results = list(filter(lambda x: x['market'].startswith('KRW-'), results))
+
         return self._mapping_list(Coin, results)
+
+    def get_candles_minutes(self, market: str, unit: int, to: str = None, count: int = 1):
+        path = f'/v1/candles/minutes/{unit}?market={market}&count={count}'
+        return self._call_api('GET', path)
+
+    def get_candles_days(self, market: str, count: int):
+        """
+        일봉 캔들
+        :param market: 마켓코드
+        :param count: 캔들 개수
+        :return:
+        """
+        path = f'/v1/candles/days?market={market}&count={count}'
+        return self._call_api('GET', path)
+
+    def get_candles_weeks(self, market: str, count: int):
+        path = f'/v1/candles/weeks?market={market}&count={count}'
+        return self._call_api('GET', path)
+
+    def get_candles_months(self, market: str, count: int):
+        path = f'/v1/candles/months?market={market}&count={count}'
+        return self._call_api('GET', path)
+
+    def get_trades_ticks(self, market: str, count: int):
+        path = f'/v1/trades/ticks?market={market}&count={count}'
+        return self._call_api('GET', path)
