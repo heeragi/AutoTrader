@@ -1,5 +1,5 @@
 from src.upbit.api.api import UpbitAPIBase
-from src.upbit.models import Account
+from src.upbit.api.models import Account
 
 
 class ExchangeAPI(UpbitAPIBase):

@@ -1,5 +1,5 @@
 from src.upbit.api.api import UpbitAPIBase
-from src.upbit.models import Coin
+from src.upbit.api.models import Coin
 
 
 class QuotationAPI(UpbitAPIBase):
