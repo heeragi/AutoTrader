@@ -24,6 +24,13 @@ class BaseDB:
         cur.execute(sql) if params is None else cur.execute(sql, params)
         return cur.lastrowid
 
+    def _execute_fetch_all(self, cur, sql, params=None):
+        cur.execute(sql) if params is None else cur.execute(sql, params)
+        return cur.fetchall()
+
+    # def _execute_fetch_many(self, cur, sql, params=None):
+
+
     def insert(self, sql: str, params: tuple = None):
         with self.__connection() as con:
             return self._execute_last_rowid(con.cursor(), sql, params)
@@ -33,14 +40,11 @@ class BaseDB:
             cur = con.cursor()
             cur.executemany(sql, params)
 
-    # def __query(self, sql, params: tuple = None):
-    #     cur = self.__connection.cursor()
-    #     try:
-    #         if params is None:
-    #             cur.execute(sql)
-    #         else:
-    #             cur.execute(sql, params)
-    #     except Exception as e:
-    #         print(e)
-    #         return None
-    #     return cur.fetchall()
+    def query(self, sql, params: tuple = None, size: int = None):
+        with self.__connection() as con:
+            return self._execute_fetch_all(con.cursor(), sql, params)
+
+    def scalar(self, sql, params: tuple = None):
+        with self.__connection() as con:
+            cur = con.cursor()
+            cur.execute(sql, params)

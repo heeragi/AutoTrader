@@ -7,12 +7,18 @@
 1. api key 발급 (업비트 로그인 필요) [업비트 API KEY 발급 링크](https://upbit.com/mypage/open_api_management)
 2. python package 설치
     
-    ```bash
-    pip install poetry
-    poetry install
-    poetry shell
-    ```
-    
+ ```bash
+ pip install poetry
+ poetry install
+ poetry shell
+ ```
+3. ta-lib 설치
+
+```bash
+arch -arm64 brew install ta-lib
+export TA_INCLUDE_PATH="$(brew --prefix ta-lib)/include"
+export TA_LIBRARY_PATH="$(brew --prefix ta-lib)/lib"
+```
 
 
 ## 개발자 문서
