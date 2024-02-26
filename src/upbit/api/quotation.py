@@ -1,5 +1,6 @@
 from src.upbit.api.api import UpbitAPIBase
 from src.upbit.api.models import Coin
+from src.upbit.api.request import DayCandleRequest
 
 
 class QuotationAPI(UpbitAPIBase):
@@ -20,14 +21,13 @@ class QuotationAPI(UpbitAPIBase):
         path = f'/v1/candles/minutes/{unit}?market={market}&count={count}'
         return self._call_api('GET', path)
 
-    def get_candles_days(self, market: str, count: int):
+    def get_candles_days(self, request: DayCandleRequest):
         """
         일봉 캔들
-        :param market: 마켓코드
-        :param count: 캔들 개수
+        :param request: DayCandleRequest
         :return:
         """
-        path = f'/v1/candles/days?market={market}&count={count}'
+        path = f'/v1/candles/days?{self._create_querystring(request)}'
         return self._call_api('GET', path)
 
     def get_candles_weeks(self, market: str, count: int):

@@ -6,6 +6,8 @@ from urllib.parse import unquote, urlencode
 import jwt
 import requests
 
+from src.upbit.api.request import UpbitAPIRequestBase
+
 
 class UpbitAPIBase:
 
@@ -37,6 +39,17 @@ class UpbitAPIBase:
             payload['query_hash'] = self.__encrypt_querystring(params)
             payload['query_hash_alg'] = 'SHA512'
         return payload
+
+    def _create_querystring(self, params: UpbitAPIRequestBase):
+        parameters = params.dict()
+        querystring = []
+        for key in list(parameters.keys()):
+            if parameters[key] is None:
+                continue
+            querystring.append(f'{key}={parameters[key]}')
+        if len(querystring) == 0:
+            return None
+        return '&'.join(querystring)
 
     def _call_api(self, method: str, path: str, params=None):
 
