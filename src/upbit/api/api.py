@@ -69,7 +69,7 @@ class UpbitAPIBase:
         )
 
         if response.status_code != 200:
-            raise Exception(response.text)
+            raise Exception(response.json()['error'])
 
         if response is None:
             raise Exception('API Error')
