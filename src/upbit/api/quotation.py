@@ -1,9 +1,12 @@
 from src.upbit.api.api import UpbitAPIBase
-from src.upbit.api.models import Coin
+from src.upbit.api.models import Coin, DayCandle
 from src.upbit.api.request import DayCandleRequest
 
 
 class QuotationAPI(UpbitAPIBase):
+    
+    def __init__(self):
+        super().__init__()
 
     def get_coin_codes(self) -> list[Coin]:
         """
@@ -36,7 +39,7 @@ class QuotationAPI(UpbitAPIBase):
         :return:
         """
         path = f'/v1/candles/days?{self._create_querystring(request)}'
-        return self._call_api('GET', path)
+        return self._mapping_list(DayCandle, self._call_api('GET', path))
 
     def get_candles_weeks(self, market: str, count: int):
         """

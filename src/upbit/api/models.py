@@ -25,7 +25,7 @@ class Coin(BaseModel):
 
 
 class Candle(ModelBase):
-    id: Optional[str]
+    id: Optional[str] = Field(description='id', default=None)
     market: str = Field(description='코인명')
     candle_date_time_utc: str = Field(description='utc 기준 시각')
     candle_date_time_kst: str = Field(description='kst 기준 시각')

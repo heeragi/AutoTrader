@@ -18,7 +18,7 @@ def test_get_candles_minutes(quotation_api):
 
 
 def test_get_candles_days(quotation_api):
-    request = DayCandleRequest()
+    request = DayCandleRequest(convertingPriceUnit='KRW')
     results = quotation_api.get_candles_days(request)
     for result in results:
         print(DayCandle.model_validate(result))

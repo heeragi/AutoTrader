@@ -23,4 +23,10 @@ def get_date_from_now(type: str = None, days: int = 0):
 
 
 def diff_date(start: str, end: str):
-    return (datetime.fromisoformat(end) - datetime.fromisoformat(start)).days
+    end = convert_str_date_to_date(end, '%Y-%m-%d')
+    start = convert_str_date_to_date(start, '%Y-%m-%d')
+    return (end - start).days
+
+
+def get_now_date():
+    return str(datetime.now().date())

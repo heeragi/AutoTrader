@@ -69,9 +69,9 @@ class DayCandleRepository(BaseDB):
 
     def get_all(self):
         sql = '''
-        SELECT  *
+        SELECT  market, date, opening_price, high_price, low_price, trade_price
         FROM    day_candle
-        ORDER BY date DESC
+        ORDER BY date ASC        
         '''
-        result = self.query(sql, None, size=200)
+        result = self.query(sql, None)
         return result
