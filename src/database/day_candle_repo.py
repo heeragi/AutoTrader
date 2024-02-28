@@ -41,8 +41,37 @@ class DayCandleRepository(BaseDB):
         SELECT  *
         FROM    day_candle
         WHERE   date BETWEEN ? AND ?
-        ORDER BY ID DESC
+        ORDER BY date DESC
         '''
+
         params = (start_date, end_date)
 
-        return self.query(sql, params)
+        return self.query(sql, params, size=200)
+
+    def is_empty_date(self, date: str):
+        sql = '''
+        SELECT  COUNT(*)
+        FROM    day_candle
+        WHERE   date = ?
+        '''
+        result = self.scalar(sql, (date, ))[0]
+        return result == 0
+
+    def get_last_date(self):
+        sql = '''
+        SELECT  date
+        FROM    day_candle
+        ORDER BY date DESC
+        LIMIT 1
+        '''
+        result = self.scalar(sql, None)
+        return result[0]
+
+    def get_all(self):
+        sql = '''
+        SELECT  *
+        FROM    day_candle
+        ORDER BY date DESC
+        '''
+        result = self.query(sql, None, size=200)
+        return result

@@ -1,6 +1,7 @@
 import abc
 import sqlite3
 from contextlib import contextmanager
+from pathlib import Path
 
 
 class BaseDB:
@@ -8,7 +9,7 @@ class BaseDB:
     @contextmanager
     def __connection(self, db: str = None):
         if db is None:
-            db = '../../tests/test.db'
+            db = f'{Path(__file__).parent.parent.parent}/test.db'
         con = sqlite3.connect(db)
         try:
             yield con
@@ -42,9 +43,23 @@ class BaseDB:
 
     def query(self, sql, params: tuple = None, size: int = None):
         with self.__connection() as con:
-            return self._execute_fetch_all(con.cursor(), sql, params)
+            cur = con.cursor()
+            if params is None:
+                cur.execute(sql)
+            else:
+                cur.execute(sql, params)
+
+            if size is None:
+                return cur.fetchall()
+            else:
+                return cur.fetchmany(size=size)
+            # return self._execute_fetch_all(con.cursor(), sql, params)
 
     def scalar(self, sql, params: tuple = None):
         with self.__connection() as con:
             cur = con.cursor()
-            cur.execute(sql, params)
+            if params is None:
+                cur.execute(sql)
+            else:
+                cur.execute(sql, params)
+            return cur.fetchone()

@@ -20,3 +20,7 @@ def get_date_from_now(type: str = None, days: int = 0):
         return datetime.now().date() + timedelta(days=days)
     elif type == 'past':
         return datetime.now().date() - timedelta(days=days)
+
+
+def diff_date(start: str, end: str):
+    return (datetime.fromisoformat(end) - datetime.fromisoformat(start)).days

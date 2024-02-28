@@ -2,7 +2,7 @@ import sqlite3
 
 
 def test_create_day_candle_table():
-    con = sqlite3.connect('../test.db')
+    con = sqlite3.connect('../../test.db')
     cur = con.cursor()
     cur.execute(
         'CREATE TABLE IF NOT EXISTS day_candle('
