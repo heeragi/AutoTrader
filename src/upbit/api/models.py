@@ -57,3 +57,12 @@ class DayCandle(Candle):
     change_price: Optional[float] = Field(description='전일 종가 대비 변화 금액', default=None)
     change_rate: float = Field(description='전일 종가 대비 변화량')
     converted_trade_price: Optional[float] = Field(description='종가 환상 화폐 단위로 환산된 가격', default=None)
+
+class MinuteCandle(Candle):
+    unit: float = Field(description='분 단위(유닛)')
+
+class WeekCandle(Candle):
+    first_day_of_period: float = Field(description='캔들 기간의 가장 첫 날')
+
+class MonthCandle(Candle):
+    first_day_of_period: float = Field(description='')
