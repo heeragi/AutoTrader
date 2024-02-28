@@ -13,6 +13,21 @@ class DayCandleRequest(UpbitAPIRequestBase):
     count: int = Field(description='가져올 캔들 개수', default=200)
     convertingPriceUnit: str = Field(description='마켓코드', default='KRW')
 
+class MinuteCandleRequest(UpbitAPIRequestBase):
+    market: str = Field(description='마켓코드', default='KRW-BTC')
+    to: Optional[str] = Field(description='마지막 캔들 시각', default=None)
+    count: int = Field(description='캔들 개수', default=200)
+
+class WeekCandleRequest(UpbitAPIRequestBase):
+    market: str = Field(description='마켓코드', default='KRW-BTC')
+    to: Optional[str] = Field(description='마지막 캔들 시각', default=None)
+    count: int = Field(description='캔들 개수', default=200)
+
+class MonthCandleRequest(UpbitAPIRequestBase):
+    market: str = Field(description='마켓코드', default='KRW-BTC')
+    to: Optional[str] = Field(description='마지막 캔들 시각', default=None)
+    count: int = Field(description='캔들 개수', default=200)
+
 
 class OrderListRequest(UpbitAPIRequestBase):
     market: str = Field(description='마켓 아이디', default='KRW-BTC')
